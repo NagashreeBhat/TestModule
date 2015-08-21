@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<!--
+    COPYRIGHT LICENSE: This information contains sample code provided in source code form. You may copy, modify, and distribute
+    these sample programs in any form without payment to IBM® for the purposes of developing, using, marketing or distributing
+    application programs conforming to the application programming interface for the operating platform for which the sample code is written.
+    Notwithstanding anything to the contrary, IBM PROVIDES THE SAMPLE SOURCE CODE ON AN "AS IS" BASIS AND IBM DISCLAIMS ALL WARRANTIES,
+    EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, ANY IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY,
+    FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND ANY WARRANTY OR CONDITION OF NON-INFRINGEMENT. IBM SHALL NOT BE LIABLE FOR ANY DIRECT,
+    INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR OPERATION OF THE SAMPLE SOURCE CODE.
+    IBM HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR MODIFICATIONS TO THE SAMPLE SOURCE CODE.
+  
+ -->
+<html>
+    	<head>
+    		<meta charset="UTF-8">
+    		<title>Auto V1</title>
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    		<link rel="shortcut icon" href="images/favicon.png">
+    		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    		<link rel="stylesheet" href="css/main.css">
+    		<script>window.$ = window.jQuery = WLJQ;</script>
+    		
+    		<!-- **********For autoClick using Javascript ***************** -->
+    		 <!-- <script>
+				function autoClick(){
+				
+				// UI Controls
+				document.getElementById('BusyIndicatorStartButton').click();
+				//document.getElementById('SimpleDialogStartButton').click();
+				//$('#SimpleDialogStartButton').delay(300000).trigger('click');
+				$('#SimpleDialogStartButton').delay(6000).queue(function() {
+				    $(this).trigger('click');
+				});
+				
+				/* $('#itemsList').delay(12000).queue(function(){
+				     $(this).trigger('click');
+				}); */
+				
+				//Custom Login Module - call
+				$('#getSecretDataButton').delay(10000).queue(function(){
+				     $(this).trigger('click');
+				});
+				
+				//Custom Login Module - Logout
+			    $('#AuthSubmitButton').delay(12000).queue(function(){
+				     $(this).trigger('click');
+				});
+			
+              
+       /*  
+        document.getElementById('AuthUsername').value="moo"
+document.forms[0].submit()
+        document.getElementById('AuthPassword').value="moo"
+document.forms[1].submit() 
+     */
+            
+            
+				}
+				
+			</script> 
+			 -->
+			
+			<!-- 
+			 /*  
+                function simulateLogin(userName)
+        {
+            var userNameField = document.getElementById("AuthUsername");
+            userNameField.value = userName;
+            
+            var goButton = document.getElementById("AuthSubmitButton");
+            goButton.click();
+        }
+
+        simulateLogin("testUser"); */ -->
+		<!--  ****************************************************************** -->	
+    		
+    	</head>
+    	<body style="display: none;" onload="setTimeout('autoClick();',3000);"> <!-- **autoClick timer*** -->
+    		<!--  UI Controls  -->
+    		<div id="header">
+			<h1>UI Controls</h1>
+		</div>			
+		<div id="wrapper">
+			<input type="button" id="BusyIndicatorStartButton" value="Display WL.BusyIndicator for 5 seconds" /><br />
+			<input type="button" id="SimpleDialogStartButton"  value="Invoke WL.SimpleDialog" />
+			</div>
+			<!-- ***************************************************************************** -->
+			
+    		<!-- Custom Login Module -->
+    		<!-- <div id="header">
+				<h1>Custom Login Module</h1>
+			</div>
+ 			<form id="login_form" method="post"> 
+			<div id="wrapper">	
+	    		<div id="AppDiv">					
+					<input type="button" id="getSecretDataButton" value="Call protected adapter proc" onclick="getSecretData()" />
+					<input type="button" class="appButton" value="Logout" onclick="WL.Client.logout('CustomAuthenticatorRealm',{onSuccess: WL.Client.reloadApp})" />
+					<div id="ResponseDiv"></div>
+				</div>
+	           
+				<div id="AuthDiv" style="display: none">
+					<p id="AuthInfo"></p>
+					<div id="loginForm">
+						<input type="text" id="AuthUsername" placeholder="Enter username" /><br/><br/>
+						<input type="password" id="AuthPassword"  placeholder="Enter password"/><br/>		
+						<input type="button" id="AuthSubmitButton" class="formButton" value="Login" />
+						<input type="button" id="AuthCancelButton" class="formButton" value="Cancel" />
+					
+					
+					</div>
+				</div> 
+			</div>   --> 
+			
+			
+			<!--  ************************************************************ -->	
+			
+			
+			<!-- ************************ Form Based Authentication *******************************  -->
+			     <div id="header">
+				<h1>Form Based Authentication</h1>
+			</div>
+    		
+    		<div id="wrapper">
+	    		<div id="AppDiv">			
+					<input type="button" id="getSecretDataButton" value="Call protected adapter procedure" onclick="getSecretData()" />
+					<input type="button" class="appButton" value="Logout" onclick="WL.Client.logout('SampleAppRealm', {onSuccess:  WL.Client.reloadApp});" />
+					<div id="ResponseDiv"></div>
+				</div>
+	
+				<div id="AuthDiv" style="display: none">
+					<div id="loginForm">
+						<input type="text" placeholder="Enter username" id="AuthUsername" /><br />
+						<input type="password" placeholder="Enter password" id="AuthPassword" /><br/>		
+						<input type="button" class="formButton" id="AuthSubmitButton" value="Login" /><input type="button" class="formButton" id="AuthCancelButton" value="Cancel" />
+					</div>
+				</div> 
+			</div>   	
+<!--  ***********************************************************************************************  -->
+<!--  ************************************ Java Adapters(RSS Reader)****************************** -->			
+			
+			<div id="header">
+				<h1>RSS Reader</h1>
+			</div>
+			<div id="wrapper">
+				<div style="text-align: center;">
+					<select id="topic" style="width:90%; height:3em;">
+						<option value="" selected="selected">Top Stories</option>
+						<option value="technology">Technology</option>
+						<option value="world">World</option>
+						<option value="africa">Africa</option>
+						<option value="americas">Americas</option>
+						<option value="asia">Asia</option>
+						<option value="europe">Europe</option>
+						<option value="us">U.S.</option>
+						<option value="money">Money</option>
+						<option value="bad">Bad Topic</option>
+					</select>
+				</div>
+				<ul id="itemsList"></ul>
+			</div>
+			
+			<!--  *********************************************************************************** -->
+			
+			<!--  ******************************** Java Adapter(HTTP Request) ************************************* -->
+			      
+			      <div id="header">
+				<h1>Java Adapter</h1>
+			</div>
+			<div id="wrapper">
+				<div style="text-align: center;">
+				<button onClick="getRate()" class="button">Get rate USD->EUR</button>
+				
+				</div>
+				</div>
+				
+		<!-- ************************************************************************************************ -->
+		
+		<!-- ****************************************** Push Notification *********************************** -->		
+			    <div id="header">
+			<h1>Push Notifications</h1>
+		</div>
+   		
+   		<div id="AppBody">	
+			<div class="wrapper">
+				<input type="button" id="isPushSupportedButton" class="appButtons" value="isPushSupported" onclick="isPushSupported();"/>
+				<input type="button" id="isSubscribedButton" class="appButtons" value="isSubscribed" onclick="isPushSubscribed();"/>
+				<br />
+				<input type="button" id="SubscribeButton" class="appButtons" value="Subscribe" onclick="doSubscribe();" disabled="disabled"/>
+				<input type="button" id="UnsubscribeButton" class="appButtons" value="Unsubscribe" onclick="doUnsubscribe();" disabled="disabled"/><br />				
+			</div> 	
+		</div>
+
+		<div id="AuthBody" style="display: none">
+			<div class="wrapper">
+				<form id="loginForm" >
+					<input type="text" id="usernameInputField" placeholder="Username"/><br />
+					<input type="password" id="passwordInputField" placeholder="Password"/><br/>		
+					<input type="button" id="loginButton" value="Login" />
+				</form>
+			</div>
+		</div>   
+			<!--  *********************************** Custom Device Provisioning ******************* -->
+			     
+			     <div id="header">
+				<h1>Custom Device Provisioning</h1>
+			</div>
+			
+			<div id="wrapper">
+	    		<div id="AppBody">
+	    			<p id="beforeProv">								
+						Tap the connect button to authenticate using custom device provisioning.			
+					</p>
+					
+					<input type="button" id="connectToServerButton" class="appButton" value="Connect to MobileFirst Server"/>
+					<p id="provisioningError" style="display: none"></p> 
+				</div>
+	
+				<div id="ProvBody" style="display: none">
+					<p id="provisioningError">
+						<div id="provisioningErrorDiv"></div>
+						<input id="provisioningCode" placeholder="Enter code" type="text" />
+						<input type="button" id="submitProvCodeButton" class="formButton" value="Send"/>
+				
+				</div>
+			</div>
+			
+			<!--  *********************** Location Services *********************************** -->
+		           <div id="header">
+			<h1>Location Services</h1>
+		</div>
+
+		<div id="wrapper">
+    		<p>
+    			Your position will appear below. Errors will be displayed in alerts.
+    		</p>
+    		<p>
+    			After 3 seconds, if you haven't moved more than 50 meters, an alert will be displayed and an event will be sent to the server.<br>Once you have moved more than 200 meters, an alert will be displayed and ant event will be sent to the server.
+    		</p>
+
+   			<div id="longitude"><b>Longitude:</b> </div>
+   			<div id="latitude"><b>Latitude:</b> </div>
+   			<div id="timestamp"><b>Timestamp:</b> </div>
+   		</div>
+				
+			<!--  **********************************************************************************  -->
+    		<script src="js/initOptions.js"></script>
+    		<script src="js/main.js"></script>
+    		<script src="js/messages.js"></script>
+    		<!-- <script src="js/CustomAuthenticatorRealmChallengeHandler.js"></script> --> <!--  **Custom Login Module** -->
+            <script src="js/SampleAppRealmChallengeHandler.js"></script> <!--  **Form Based Authentication** -->   	
+    	    <script src="js/PushAppRealmChallengeHandler.js"></script> <!-- **Push Notification** -->
+    	    <script src="js/CustomDeviceProvisioningRealmChallengeHandler.js"></script><!--  **Custom Device Provisioning** -->
+    	    
+    	</body>
+</html>
